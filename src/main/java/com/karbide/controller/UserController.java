@@ -1,6 +1,8 @@
 package com.karbide.controller;
 
 import com.karbide.model.User;
+import com.karbide.model.UserProfile;
+import com.karbide.service.UserProfileService;
 import com.karbide.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +17,26 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService service;
+    private final UserProfileService profileService;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, UserProfileService profileService) {
         this.service = service;
+        this.profileService = profileService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public User createUser(@RequestBody @Valid User user) {
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public User userLogin(@RequestBody User userId) {
+        return service.findById(userId.getUserId());
+    }
+
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public User userRegister(@RequestBody @Valid UserProfile profile) {
+        UserProfile userProfile = profileService.create(profile);
+        User user = new User();
+        user.setUserId(userProfile.getUserId());
+        user.setUsername(userProfile.getEmail());
+        user.setPassword(userProfile.getPassword());
         return service.create(user);
     }
 

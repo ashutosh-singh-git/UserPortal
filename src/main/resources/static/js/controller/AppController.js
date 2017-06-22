@@ -18,12 +18,12 @@ bController.controller('AppController', ['$scope', 'authFact', '$rootScope', '$c
 
         $scope.selectedTemplate = $cookieStore.get('template');
 
-        $scope.setInnerPage = function(path){
+        $scope.setInnerPage = function (path) {
             $cookieStore.put('template', path);
             $scope.selectedTemplate = path;
         }
 
-        $scope.getInnerPage = function(){
+        $scope.getInnerPage = function () {
             $scope.selectedTemplate = $cookieStore.get('template');
         }
     }]);

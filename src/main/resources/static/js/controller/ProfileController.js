@@ -1,8 +1,6 @@
-app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootScope',
+app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$rootScope',
     function ($scope, CommonService, $timeout, $rootScope) {
-        var self = this;
-
-        self.user_url = config.BASE_URL + config.GET_USER;
+        $scope.user_url = config.BASE_URL + config.GET_PROFILE;
 
         $scope.selectedUser = new UserModel();
 
@@ -11,25 +9,20 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
         });
 
         var init = function () {
-            // self.getUserDetails();
+            $scope.getUserDetails();
         }
 
-        self.replacePlaceHolder = function (str, placeholder, value) {
+        $scope.replacePlaceHolder = function (str, placeholder, value) {
             return str.replace("{" + placeholder + "}", value);
         }
 
         $scope.dataLoaded = false;
 
-        self.getUserDetails = function () {
-            // $scope.AllDecks = [];
-            if (self.user_url != null) {
-                CommonService.getResponse(self.replacePlaceHolder(self.user_url, "USER_ID", $scope.getUserId())).then(function (data) {
+        $scope.getUserDetails = function () {
+            if ($scope.user_url != null) {
+                CommonService.getResponse($scope.replacePlaceHolder($scope.user_url, "USER_ID", $scope.getUserId())).then(function (data) {
+                    console.log(data.data);
                     $scope.selectedUser = data.data;
-                    /*if (data.data["last"] == true) {
-                        $scope.deckPageNo = 0;
-                    }
-                    console.log($scope.AllDecks);
-                    self.getDeck(null);*/
 
                     $timeout(function () {
                         $scope.dataLoaded = true;
@@ -42,7 +35,7 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
         };
 
         init();
-        self.getDeck = function (deckId) {
+        $scope.getDeck = function (deckId) {
             $scope.SelectedDeck = {};
             $scope.cardIndex = 0;
             if (deckId == null) {
@@ -51,7 +44,7 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
                 }
             }
             if (deckId != null) {
-                CommonService.getResponse(self.replacePlaceHolder(self.deck_url, PLACEHOLDER_DECK_ID, deckId)).then(
+                CommonService.getResponse($scope.replacePlaceHolder($scope.deck_url, PLACEHOLDER_DECK_ID, deckId)).then(
                     function (data) {
                         $scope.SelectedDeck = data.data;
                         console.log(JSON.stringify(data.data));
@@ -63,13 +56,13 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
             }
         }
 
-        self.replacePlaceHolder = function (str, placeholder, value) {
+        $scope.replacePlaceHolder = function (str, placeholder, value) {
             return str.replace("{" + placeholder + "}", value);
         }
 
         $scope.loadCategories = function ($query) {
 
-            return CommonService.getCachedResponse(self.categories_url).then(function (response) {
+            return CommonService.getCachedResponse($scope.categories_url).then(function (response) {
                 var categories = response.data;
                 return categories.filter(function (category) {
                     return category.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
@@ -94,7 +87,7 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
             $scope.dataLoaded = false;
             var deckID = $scope.SelectedDeck.deckId;
 
-            CommonService.deleteResponse(self.replacePlaceHolder(self.deck_url, PLACEHOLDER_DECK_ID, deckID)).then(
+            CommonService.deleteResponse($scope.replacePlaceHolder($scope.deck_url, PLACEHOLDER_DECK_ID, deckID)).then(
                 function (data) {
                     console.log("Deleted deckId:" + deckID);
                     $scope.cardIndex = 0;
@@ -104,7 +97,7 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
                     $scope.dataLoaded = true;
                 });
             if (!$scope.dataLoaded) {
-                self.getAllDecks();
+                $scope.getAllDecks();
             }
         };
 
@@ -113,10 +106,10 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
             var deckId = deck.deckId;
             console.log(deck);
             // return;
-            CommonService.putRequest(self.replacePlaceHolder(self.update_deck_url, PLACEHOLDER_DECK_ID, deckId), deck).then(
+            CommonService.putRequest($scope.replacePlaceHolder($scope.update_deck_url, PLACEHOLDER_DECK_ID, deckId), deck).then(
                 function (data) {
                     console.log("updated deckId:" + deckId);
-                    self.getAllDecks();
+                    $scope.getAllDecks();
                 }, function (reason) {
                     alert('Failed: ' + reason.data.message);
                 });
@@ -125,10 +118,10 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
         $scope.updateCard = function () {
             var card = $scope.SelectedDeck.cards[$scope.cardIndex];
             var cardId = card.id;
-            CommonService.putRequest(self.replacePlaceHolder(self.update_card_url, PLACEHOLDER_CARD_ID, cardId), card).then(
+            CommonService.putRequest($scope.replacePlaceHolder($scope.update_card_url, PLACEHOLDER_CARD_ID, cardId), card).then(
                 function (data) {
                     console.log("updated cardId:" + cardId);
-                    self.getAllDecks();
+                    $scope.getAllDecks();
                 }, function (reason) {
                     alert('Failed: ' + reason.data.message);
                 });

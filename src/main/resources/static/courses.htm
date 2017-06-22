@@ -1,43 +1,71 @@
-<div class="container" ng-controller="PhoneController">
+<div ng-controller="CourseController">
     <div class="col-md-12">
-        <h1>Course Applied</h1>
+        <h1>My Courses</h1>
         <br>
-        <div class="row">
-            <div class="col-md-2 form-group">
-                <p>Course ID</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>Course Name</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>Course Duration</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>Course Fees</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>Course Completed</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 form-group">
-                <p>{{id}}</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>{{courseName}}</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>{{duration}}</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>{{fees}}</p>
-            </div>
-            <div class="col-md-2 form-group">
-                <p>{{isCompleted}}</p>
-            </div>
-        </div>
-        <div><span>Add More Courses: &nbsp;&nbsp;</span>
-            <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Course Name</td>
+                <td>Course Duration</td>
+                <td>Course Fees</td>
+                <td>Enrolled Date</td>
+                <td>Course Status</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="x in course">
+                <td>{{x.id}}</td>
+                <td>{{x.courseName}}</td>
+                <td>{{x.duration}}</td>
+                <td>{{x.fees}}</td>
+                <td>{{x.enrolledDate | date}}</td>
+                <td>{{x.status | titleCase}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="row"><h1>Add More</h1><br>
+            <form name="form" ng-submit="addCourse()" role="form">
+                <div class="col-lg-4 form-inline">
+                    <label>Course Name: </label>
+                    <div class="form-group">
+                        <select class="form-control" ng-model="crse.courseName">
+                            <option value="English">English</option>
+                            <option value="Hindi" ng-selected="selected">Hindi</option>
+                            <option value="French">French</option>
+                            <option value="German">German</option>
+                            <option value="Chinese">Chinese</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 form-inline">
+                    <label>Duration: </label>
+                    <div class="form-group">
+                        <select class="form-control" ng-model="crse.duration">
+                            <option selected value="7 Days">7 Days</option>
+                            <option value="15 Days">15 Days</option>
+                            <option value="30 Days">30 Days</option>
+                            <option value="45 Days">45 Days</option>
+                            <option value="60 Days">60 Days</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 form-inline">
+                    <label>Fees: </label>
+                    <div class="form-group">
+                        <select class="form-control" required name="fees" ng-model="crse.fees">
+                            <option value="$ 20">$ 20</option>
+                            <option value="$ 50">$ 50</option>
+                            <option value="$ 100">$ 100</option>
+                            <option value="$ 150">$ 150</option>
+                            <option value="$ 150">$ 150</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </form>
         </div>
     </div>
 </div>

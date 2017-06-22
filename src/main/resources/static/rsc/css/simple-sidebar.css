@@ -1,25 +1,21 @@
-/*!
- * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-
  body {
     overflow-x: hidden;
  }
 
-/* Toggle Styles */
-
 #wrapper {
-    padding-left: 0;
+    /*padding-left: 0;*/
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
 
+.navbar-header h1{
+    color: #e7e7e7;
+}
+
 #wrapper.toggled {
-    padding-left: 250px;
+    /*padding-left: 250px;*/
 }
 
 #sidebar-wrapper {
@@ -38,19 +34,8 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    top: 15px;
+    top: 80px;
     width: 250px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
 }
 
 /* Sidebar Styles */
@@ -87,9 +72,9 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
+    height: 45px;
+    font-size: 20px;
+    line-height: 40px;
 }
 
 .sidebar-nav > .sidebar-brand a {

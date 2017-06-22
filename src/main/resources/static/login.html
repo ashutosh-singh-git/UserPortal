@@ -1,81 +1,100 @@
 <link href="rsc/css/login.css" rel="stylesheet">
+<link href="rsc/css/simple-sidebar.css" rel="stylesheet">
+<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
 
-<div class="container">
-    <div class="container">
-
-        <header>
-            <h1>User Portal</h1>
-
-        </header>
-        <section>
-            <div id="container_demo" >
-                <a class="hiddenanchor" id="toregister"></a>
-                <a class="hiddenanchor" id="tologin"></a>
-                <div id="wrapper">
-                    <div id="login" class="animate form">
-                        <form  action="" autocomplete="on">
-                            <h1>Log In</h1>
-                            <p>
-                                <label for="username" class="uname" > Your email or username </label>
-                                <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
-                            </p>
-                            <p>
-                                <label for="password" class="youpasswd"> Your password </label>
-                                <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" />
-                            </p>
-                            <p class="keeplogin">
-                                <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
-                                <label for="loginkeeping">Keep me logged in</label>
-                            </p>
-                            <p class="login button">
-                                <button class="button facebook" id="fbLogin" ng-click="fbLogin()"><span><i class="fa fa-facebook"></i></span>
-                            <p>Log Me In</p></button>
-                            </p>
-                            <!--<p class="change_link">-->
-                                Not a member yet ?
-                                <a href="#toregister" class="to_register">Join us</a>
-                            <!--</p>-->
-                        </form>
-                    </div>
-
-                    <div id="register" class="animate form">
-                        <form  action="mysuperscript.php" autocomplete="on">
-                            <h1> Sign up </h1>
-                            <p>
-                                <label for="usernamesignup" class="uname" >Your username</label>
-                                <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
-                            </p>
-                            <p>
-                                <label for="emailsignup" class="youmail"  > Your email</label>
-                                <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/>
-                            </p>
-                            <p>
-                                <label for="passwordsignup" class="youpasswd" >Your password </label>
-                                <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                            </p>
-                            <p>
-                                <label for="passwordsignup_confirm" class="youpasswd" >Please confirm your password </label>
-                                <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                            </p>
-                            <p class="signin button">
-                                <input type="submit" value="Sign up"/>
-                            </p>
-                            <!--<p class="change_link">-->
-                                Already a member ?
-                                <a href="#tologin" class="to_register"> Go and log in </a>
-                            <!--</p>-->
-                        </form>
-                    </div>
-
-                </div>
+<div class="container" ng-controller="LoginController">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <h1>User Portal</h1>
             </div>
-        </section>
-    </div>
-    <!--<div class="vertical-center-row">
-        <div align="center" style="border: 3px solid blanchedalmond; margin: 0 39%; padding: 2%">
-            <p class="text-info">Login to your account</p>
-            <button class="button facebook" id="fbLogin" ng-click="fbLogin()"><span><i class="fa fa-facebook"></i></span>
-                <p>Log Me In</p></button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>-->
+    </nav>
+    <section>
+        <div id="container_demo">
+            <div id="wrapper">
+                <div id="login" ng-show="islogin" class="animate form">
+                    <h1>Log In</h1>
+                    <form name="form" ng-submit="login()" role="form">
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="luserame" class="form-control"
+                                   ng-model="user.username" required/>
+                            <span ng-show="form.username.$dirty && form.username.$error.required"
+                                  class="help-block">Username is required</span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="lpassword" class="form-control"
+                                   ng-model="user.password" required/>
+                            <span ng-show="form.password.$dirty && form.password.$error.required"
+                                  class="help-block">Password is required</span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <a ng-click="islogin = false" class="btn btn-link">Register</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="register" ng-show="!islogin" class="animate form">
+                    <h1> Sign up </h1>
+                    <form name="form" ng-submit="register()" role="form">
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                            <label for="username">First name</label>
+                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                   ng-model="vm.user.firstName" required/>
+                            <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+                            <label for="username">Last name</label>
+                            <input type="text" name="lastName" id="Text1" class="form-control"
+                                   ng-model="vm.user.lastName" required/>
+                            <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control"
+                                   ng-model="vm.user.username" required/>
+                            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control"
+                                   ng-model="vm.user.password" required/>
+                            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                Register
+                            </button>
+                            <a ng-click="islogin = true" class="btn btn-link">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </div>

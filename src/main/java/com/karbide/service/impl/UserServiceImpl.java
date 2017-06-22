@@ -1,7 +1,8 @@
-package com.karbide.service;
+package com.karbide.service.impl;
 
 import com.karbide.model.User;
 import com.karbide.repository.UserRepository;
+import com.karbide.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
