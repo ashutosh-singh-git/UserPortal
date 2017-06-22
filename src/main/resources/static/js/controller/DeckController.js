@@ -11,7 +11,7 @@ app.controller('DeckController', ['$scope', 'CommonService', '$timeout', '$rootS
         });
 
         var init = function () {
-            self.getUserDetails();
+            // self.getUserDetails();
         }
 
         self.replacePlaceHolder = function (str, placeholder, value) {
