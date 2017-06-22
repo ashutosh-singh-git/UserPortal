@@ -1,0 +1,5 @@
+{
+  "BASE_URL": "http://localhost:8080",
+  "USER": "/user",
+  "GET_USER": "/user?userId={USER_ID}"
+}

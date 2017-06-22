@@ -1,0 +1,43 @@
+<div class="container" ng-controller="PhoneController">
+    <div class="col-md-12">
+        <h1>Course Applied</h1>
+        <br>
+        <div class="row">
+            <div class="col-md-2 form-group">
+                <p>Course ID</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>Course Name</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>Course Duration</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>Course Fees</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>Course Completed</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 form-group">
+                <p>{{id}}</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>{{courseName}}</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>{{duration}}</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>{{fees}}</p>
+            </div>
+            <div class="col-md-2 form-group">
+                <p>{{isCompleted}}</p>
+            </div>
+        </div>
+        <div><span>Add More Courses: &nbsp;&nbsp;</span>
+            <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+    </div>
+</div>
