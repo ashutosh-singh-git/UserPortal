@@ -120,7 +120,7 @@ p.signin.button {
     position: absolute;
     top: 40px;
     width: 70%;
-    padding: 5px 6% 5px 6%;
+    padding: 5px 6% 15px 6%;
     margin: 0 25px;
     background: rgb(247, 247, 247);
     border: 1px solid rgba(147, 184, 189, 0.8);

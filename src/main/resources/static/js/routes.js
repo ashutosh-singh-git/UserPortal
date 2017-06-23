@@ -8,10 +8,10 @@ app.config(['$routeProvider','$locationProvider', function ($routeProvider,$loca
         {
             templateUrl: 'home.html',
             authenticated: true
-        }).otherwise("/",
-        {
-            templateUrl: 'index.html',
-            controller: 'LoginController'
+        }).otherwise({
+        redirectTo: '/login'
+        // templateUrl: 'index.html',
+        // controller: 'LoginController'
         });
 }]);
 

@@ -1,8 +1,8 @@
 var UserModel = function () {
     var deck = {};
     deck.userId = '';
-    deck.firstName='';
-    deck.lastName='';
+    deck.firstName = 'Ashutosh';
+    deck.lastName = 'Singh';
     deck.email='';
     deck.gender = '';
     deck.address = '';

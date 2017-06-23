@@ -2,14 +2,18 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
     function ($scope, CommonService, $timeout, $rootScope) {
         $scope.user_url = config.BASE_URL + config.GET_PROFILE;
 
-        $scope.selectedUser = new UserModel();
+        $scope.selectedUser = new UserModel()
+        $scope.selectedUser.firstName = 'Ashutosh';
+        $scope.selectedUser.lastName = 'Singh';
+        $scope.isEdit = false;
+        $scope.dataPresent = false;
 
         $rootScope.$on("CallParentMethod", function () {
             init();
         });
 
         var init = function () {
-            $scope.getUserDetails();
+            // $scope.getUserDetails();
         }
 
         $scope.replacePlaceHolder = function (str, placeholder, value) {
@@ -23,6 +27,7 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
                 CommonService.getResponse($scope.replacePlaceHolder($scope.user_url, "USER_ID", $scope.getUserId())).then(function (data) {
                     console.log(data.data);
                     $scope.selectedUser = data.data;
+                    $scope.dataPresent = true;
 
                     $timeout(function () {
                         $scope.dataLoaded = true;
@@ -35,6 +40,21 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
         };
 
         init();
+
+        $scope.updateProfile = function () {
+            $scope.selectedUser.userId = $scope.getUserId();
+            console.log($scope.selectedUser);
+            return;
+            CommonService.putRequest($scope.update_deck_url, $scope.selectedUser).then(
+                function (data) {
+                    console.log(data.data);
+                    $scope.selectedUser = data.data;
+                    // $scope.getAllDecks();
+                }, function (reason) {
+                    alert('Failed: ' + reason.data.message);
+                });
+        };
+
         $scope.getDeck = function (deckId) {
             $scope.SelectedDeck = {};
             $scope.cardIndex = 0;
@@ -99,20 +119,6 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
             if (!$scope.dataLoaded) {
                 $scope.getAllDecks();
             }
-        };
-
-        $scope.updateDeck = function () {
-            var deck = objectToStringArray($scope.SelectedDeck);
-            var deckId = deck.deckId;
-            console.log(deck);
-            // return;
-            CommonService.putRequest($scope.replacePlaceHolder($scope.update_deck_url, PLACEHOLDER_DECK_ID, deckId), deck).then(
-                function (data) {
-                    console.log("updated deckId:" + deckId);
-                    $scope.getAllDecks();
-                }, function (reason) {
-                    alert('Failed: ' + reason.data.message);
-                });
         };
 
         $scope.updateCard = function () {

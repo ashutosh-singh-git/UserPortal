@@ -16,6 +16,10 @@ bController.controller('AppController', ['$scope', 'authFact', '$rootScope', '$c
             return status;
         };
 
+        $scope.logout = function () {
+
+        }
+
         $scope.selectedTemplate = $cookieStore.get('template');
 
         $scope.setInnerPage = function (path) {
