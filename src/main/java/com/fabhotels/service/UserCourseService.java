@@ -1,6 +1,6 @@
-package com.karbide.service;
+package com.fabhotels.service;
 
-import com.karbide.model.UserCourses;
+import com.fabhotels.model.UserCourses;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

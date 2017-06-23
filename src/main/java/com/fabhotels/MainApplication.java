@@ -1,4 +1,4 @@
-package com.karbide;
+package com.fabhotels;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

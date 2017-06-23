@@ -1,8 +1,8 @@
-package com.karbide.service.impl;
+package com.fabhotels.service.impl;
 
-import com.karbide.model.UserCourses;
-import com.karbide.repository.UserCourseRepository;
-import com.karbide.service.UserCourseService;
+import com.fabhotels.model.UserCourses;
+import com.fabhotels.repository.UserCourseRepository;
+import com.fabhotels.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

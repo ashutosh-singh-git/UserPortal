@@ -12,7 +12,6 @@ app.factory('authFact', ['$cookieStore', function ($cookieStore) {
 
     authFact.getUser = function () {
         var user = $cookieStore.get('user');
-
         if (user)
             return user;
         else

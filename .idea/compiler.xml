@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BuyersCartel" />
+        <module name="UserPortal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BuyersCartel" target="1.6" />
+      <module name="UserPortal" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

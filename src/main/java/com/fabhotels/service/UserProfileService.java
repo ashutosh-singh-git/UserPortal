@@ -1,6 +1,6 @@
-package com.karbide.service;
+package com.fabhotels.service;
 
-import com.karbide.model.UserProfile;
+import com.fabhotels.model.UserProfile;
 import org.springframework.data.domain.Page;
 
 public interface UserProfileService {

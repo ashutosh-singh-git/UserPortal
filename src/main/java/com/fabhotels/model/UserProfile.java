@@ -1,4 +1,4 @@
-package com.karbide.model;
+package com.fabhotels.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

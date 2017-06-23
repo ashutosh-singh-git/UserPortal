@@ -1,4 +1,4 @@
-package com.karbide.util;
+package com.fabhotels.util;
 
 /**
  * Created by Ashutosh on 22-06-2017.

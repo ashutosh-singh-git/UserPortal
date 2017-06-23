@@ -1,7 +1,7 @@
-package com.karbide.controller;
+package com.fabhotels.controller;
 
-import com.karbide.model.UserProfile;
-import com.karbide.service.UserProfileService;
+import com.fabhotels.model.UserProfile;
+import com.fabhotels.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
-package com.karbide.repository;
+package com.fabhotels.repository;
 
-import com.karbide.model.User;
+import com.fabhotels.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

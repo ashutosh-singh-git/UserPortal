@@ -1,4 +1,4 @@
-package com.karbide.util;
+package com.fabhotels.util;
 
 
 import org.springframework.stereotype.Component;

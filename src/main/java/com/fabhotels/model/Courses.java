@@ -1,4 +1,4 @@
-package com.karbide.model;
+package com.fabhotels.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
