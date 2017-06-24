@@ -12,10 +12,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Welcome {{username}}</a>
                     </li>
-                    <li>
-                        <a href="#" title="LogOut" class="glyphicon glyphicon-log-out"></a>
+                    <li class="logout">
+                        <a href="#" title="LogOut" ng-click="logout()" class="glyphicon glyphicon-log-out"></a>
                     </li>
                 </ul>
             </div>

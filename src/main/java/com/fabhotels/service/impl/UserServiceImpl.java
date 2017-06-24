@@ -5,6 +5,9 @@ import com.fabhotels.repository.UserRepository;
 import com.fabhotels.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,5 +41,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         return repository.findOne(id);
+    }
+
+    public User getUserByName(String username) {
+        return repository.findByUsername(username);
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User user;
+        try {
+            user = getUserByName(username);
+            if (user == null) {
+                throw new UsernameNotFoundException(username);
+            } else {
+                return user;
+            }
+        } catch (Exception e) {
+            throw new InternalAuthenticationServiceException(e.getMessage());
+        }
     }
 }

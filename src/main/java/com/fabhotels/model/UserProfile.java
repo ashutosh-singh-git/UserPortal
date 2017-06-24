@@ -4,10 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -22,6 +19,7 @@ public class UserProfile {
     private String firstName;
     private String lastName;
     @Email
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
     private String gender;
     @UpdateTimestamp

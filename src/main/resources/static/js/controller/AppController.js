@@ -1,23 +1,19 @@
 bController.controller('AppController', ['$scope', 'authFact', '$rootScope', '$cookieStore',
     function ($scope, authFact, $rootScope, $cookieStore) {
         var self = this;
-        $scope.username = authFact.getUser().name;
+        $scope.username = authFact.getUser();
 
-        $scope.setUserId = function (status) {
-            $cookieStore.put('userId', status);
-            $rootScope.$emit("CallParentMethod", {});
-        };
+        $scope.setUserName = function (name) {
+            authFact.setUser(name);
+        }
 
         $scope.getUserId = function () {
-            var status = $cookieStore.get('userId');
-            if (status == undefined) {
-                return '1';
-            }
-            return status;
+            return authFact.getUserId();
         };
 
         $scope.logout = function () {
-
+            authFact.logoutOut();
+            document.location.reload();
         }
 
         $scope.selectedTemplate = $cookieStore.get('template');

@@ -77,8 +77,8 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Birth Date</label>
                     <div class="col-lg-4">
-                        <input ng-disabled="!isEdit && dataPresent" ng-model="selectedUser.birthDate"
-                               class="form-control" type="date" value="{{selectedUser.birthDate}}">
+                        <input ng-disabled="!isEdit && dataPresent" ng-model="birthDate"
+                               class="form-control" type="date" value="{{selectedUser.birthDate | date}}">
                     </div>
                 </div>
             </div>

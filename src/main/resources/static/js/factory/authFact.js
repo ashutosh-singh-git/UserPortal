@@ -6,20 +6,28 @@ app.factory('authFact', ['$cookieStore', function ($cookieStore) {
     };
 
     authFact.getAccessToken = function () {
-        authFact.authToken = $cookieStore.get('accessToken');
-        return authFact.authToken;
+        return $cookieStore.get('accessToken');
+    };
+
+    authFact.getUserId = function () {
+        var status = $cookieStore.get('userId');
+        /*if (status == undefined) {
+         return '1';
+         }*/
+        return status;
     };
 
     authFact.getUser = function () {
-        var user = $cookieStore.get('user');
-        if (user)
-            return user;
-        else
-            console.log("user not found");
+        return $cookieStore.get('user');
     };
 
+    authFact.setUser = function (username) {
+        var user = $cookieStore.put('user', username);
+    };
+
+
     authFact.logoutOut = function () {
-        $cookieStore.remove('user');
+        $cookieStore.remove('userId');
         $cookieStore.remove('accessToken');
     };
     return authFact;
