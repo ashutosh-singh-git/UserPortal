@@ -22,6 +22,7 @@ public class UserProfileController {
         this.service = service;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
     public UserProfile createUser(@RequestBody @Valid UserProfile user) {
         return service.create(user);

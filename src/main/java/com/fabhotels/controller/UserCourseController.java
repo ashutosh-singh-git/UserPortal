@@ -3,6 +3,7 @@ package com.fabhotels.controller;
 import com.fabhotels.model.UserCourses;
 import com.fabhotels.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,11 +23,13 @@ public class UserCourseController {
         this.service = service;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
     public UserCourses createUserCourse(@RequestBody @Valid UserCourses courses) {
         return service.create(courses);
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET)
     public List<UserCourses> fetchUserCourses(@RequestParam long userId) {
         return service.findAllById(userId);

@@ -2,10 +2,11 @@
     <div class="col-md-12">
         <h1>My Courses</h1>
         <br>
-        <table class="table table-bordered">
+        <span ng-show="!isCourseAvailable">You have no courses!!</span>
+        <table ng-show="isCourseAvailable" class="table table-bordered">
             <thead>
             <tr>
-                <td>Id</td>
+                <td>CourseId</td>
                 <td>Course Name</td>
                 <td>Course Duration</td>
                 <td>Course Fees</td>
@@ -25,7 +26,8 @@
             </tbody>
         </table>
         <br>
-        <div class="row"><h1>Add More</h1><br>
+        <h1>Add More</h1><br>
+        <div class="row">
             <form name="form" ng-submit="addCourse()" role="form">
                 <div class="col-lg-4 form-inline">
                     <label>Course Name: </label>
@@ -63,7 +65,7 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>
+                <button type="submit" class="btn btn-info"><span class="glyphicn glyphicon-plus"></span>
                 </button>
             </form>
         </div>
