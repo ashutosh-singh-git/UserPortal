@@ -25,3 +25,7 @@ button[disabled] {
     background: rgb(221, 221, 221);
     color: darkgrey;
 }
+
+.profile {
+    padding-top: 20px;
+}

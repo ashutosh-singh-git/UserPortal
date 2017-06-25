@@ -7,12 +7,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Ashutosh on 21-01-2017.
  */
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/user/profile")
 public class UserProfileController {
 
     private final UserProfileService service;
@@ -24,13 +25,13 @@ public class UserProfileController {
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
-    public UserProfile createUser(@RequestBody @Valid UserProfile user) {
-        return service.create(user);
+    public UserProfile changeDefaultProfile(@RequestBody @Valid UserProfile user) {
+        return service.setDefaultProfile(user);
     }
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET)
-    public UserProfile fetchUser(@RequestParam long userId) {
-        return service.findById(userId);
+    public List<UserProfile> fetchUserProfile(@RequestParam long userId) {
+        return service.findAllByUserId(userId);
     }
 }

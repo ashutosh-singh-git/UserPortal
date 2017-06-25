@@ -24,10 +24,10 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-brand">
+            <li class="sidebar-brand" ng-class="{'selected':selectedTemplate=='profile.htm'}">
                 <a href="" ng-click="setInnerPage('profile.htm')">My Profile</a>
             </li>
-            <li class="sidebar-brand">
+            <li class="sidebar-brand" ng-class="{'selected':selectedTemplate=='courses.htm'}">
                 <a href="" ng-click="setInnerPage('courses.htm')">Courses</a>
             </li>
             <li class="sidebar-brand">

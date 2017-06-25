@@ -1,8 +1,13 @@
 app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$rootScope', '$filter',
     function ($scope, CommonService, $timeout, $rootScope, $filter) {
-        $scope.user_url = config.BASE_URL + config.GET_PROFILE;
 
-        $scope.selectedUser = new UserModel()
+        $scope.get_profile_url = config.BASE_URL + config.GET_PROFILE;
+        $scope.update_profile_url = config.BASE_URL + config.PROFILE + config.UPDATE_PROFILE;
+        $scope.userprofile_url = config.BASE_URL + config.USER_PROFILE;
+        $scope.get_userprofile_url = config.BASE_URL + config.GET_USER_PROFILE;
+
+        $scope.selectedUser = new UserModel();
+        $scope.profiles = new ProfileList();
         // $scope.selectedUser.firstName = 'Ashutosh';
         // $scope.selectedUser.lastName = 'Singh';
         $scope.isEdit = false;
@@ -13,22 +18,36 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
         });
 
         var init = function () {
-            $scope.getUserDetails();
-        }
+            $scope.getUserProfiles();
+        };
 
         $scope.replacePlaceHolder = function (str, placeholder, value) {
             return str.replace("{" + placeholder + "}", value);
-        }
+        };
 
         $scope.dataLoaded = false;
 
-        $scope.getUserDetails = function () {
-            if ($scope.user_url != null) {
-                CommonService.getResponse($scope.replacePlaceHolder($scope.user_url, "USER_ID", $scope.getUserId())).then(function (data) {
+        $scope.getUserProfiles = function () {
+            if ($scope.get_userprofile_url != null) {
+                var url = $scope.replacePlaceHolder($scope.get_userprofile_url, "USER_ID", $scope.getUserId());
+                CommonService.getResponse(url).then(function (data) {
+                    $scope.profiles = data.data;
+                    console.log($scope.profiles);
+
+                }, function (reason) {
+                    alert('Failed: ' + reason);
+                });
+            }
+        };
+
+        $scope.getUserDetails = function (profileId) {
+            var url = $scope.replacePlaceHolder($scope.get_profile_url, "PROFILE_ID", profileId);
+            if ($scope.get_profile_url != null) {
+                CommonService.getResponse(url).then(function (data) {
                     console.log(data.data);
                     $scope.selectedUser = data.data;
                     $scope.dataPresent = true;
-                    $scope.setUserName($scope.selectedUser.firstName);
+                    // $scope.setUserName($scope.selectedUser.firstName);
 
                     $timeout(function () {
                         $scope.dataLoaded = true;
@@ -42,16 +61,14 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
 
         init();
 
-        $scope.updateProfile = function () {
-            $scope.selectedUser.userId = $scope.getUserId();
-            $scope.selectedUser.birthDate = $filter('date')($scope.birthDate, "yyyy-MM-dd");
-            console.log($scope.selectedUser);
-            // return;
-            CommonService.postRequest($scope.update_deck_url, $scope.selectedUser).then(
+        $scope.updateProfile = function (profileId) {
+            $scope.selectedUser.profileId = profileId;
+            CommonService.postRequest($scope.update_profile_url, $scope.selectedUser).then(
                 function (data) {
                     console.log(data.data);
                     $scope.selectedUser = data.data;
-                    // $scope.getAllDecks();
+                    $scope.isEdit = false;
+                    document.location.reload();
                 }, function (reason) {
                     alert('Failed: ' + reason.data.message);
                 });
@@ -59,7 +76,8 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
 
         $scope.replacePlaceHolder = function (str, placeholder, value) {
             return str.replace("{" + placeholder + "}", value);
-        }
+        };
+
 
         objectToStringArray = function (deck) {
             delete deck.categories;

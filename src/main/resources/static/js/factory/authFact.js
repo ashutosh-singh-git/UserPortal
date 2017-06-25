@@ -10,11 +10,11 @@ app.factory('authFact', ['$cookieStore', function ($cookieStore) {
     };
 
     authFact.getUserId = function () {
-        var status = $cookieStore.get('userId');
-        /*if (status == undefined) {
-         return '1';
-         }*/
-        return status;
+        return $cookieStore.get('userId');
+    };
+
+    authFact.setUserId = function (userId) {
+        $cookieStore.put('userId', userId);
     };
 
     authFact.getUser = function () {
@@ -25,10 +25,21 @@ app.factory('authFact', ['$cookieStore', function ($cookieStore) {
         var user = $cookieStore.put('user', username);
     };
 
+    authFact.setProfileId = function (profile) {
+        $cookieStore.put('profileId', profile);
+    };
+
+    authFact.getProfileId = function () {
+        return $cookieStore.get('profileId');
+    };
 
     authFact.logoutOut = function () {
         $cookieStore.remove('userId');
         $cookieStore.remove('accessToken');
+        $cookieStore.remove('user');
+        $cookieStore.remove('template');
+        $cookieStore.remove('profileId');
     };
+
     return authFact;
 }]);

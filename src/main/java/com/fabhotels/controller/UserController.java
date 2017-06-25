@@ -1,13 +1,19 @@
 package com.fabhotels.controller;
 
+import com.fabhotels.model.Profile;
 import com.fabhotels.model.User;
 import com.fabhotels.model.UserProfile;
+import com.fabhotels.service.ProfileService;
 import com.fabhotels.service.UserProfileService;
 import com.fabhotels.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -15,15 +21,17 @@ import javax.validation.Valid;
  * Created by Ashutosh on 21-01-2017.
  */
 @RestController
-@RequestMapping("/user")
+//@RequestMapping(path = "/user")
 public class UserController {
 
     private final UserService service;
-    private final UserProfileService profileService;
+    private final UserProfileService userProfileService;
+    private final ProfileService profileService;
 
     @Autowired
-    public UserController(UserService service, UserProfileService profileService) {
+    public UserController(UserService service, UserProfileService userProfileService, ProfileService profileService) {
         this.service = service;
+        this.userProfileService = userProfileService;
         this.profileService = profileService;
     }
 
@@ -38,18 +46,29 @@ public class UserController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public User userRegister(@RequestBody @Valid UserProfile profile) {
-        UserProfile userProfile = profileService.create(profile);
+    public User userRegister(@RequestBody @Valid Profile profile) {
+        if (profile.getPassword() == null || profile.getUsername() == null) {
+            throw new BadCredentialsException("UserName or Password is not present");
+        }
+        if (profileService.findByEmail(profile.getEmail())) {
+            throw new DataIntegrityViolationException("This Email is already registered");
+        }
+        Profile newProfile = profileService.create(profile);
         User user = new User();
-        user.setUserId(userProfile.getUserId());
-        user.setUsername(userProfile.getEmail());
-        user.setPassword(userProfile.getPassword());
-        return service.create(user);
+        UserProfile userProfile = new UserProfile();
+        user.setUsername(profile.getUsername());
+        user.setPassword(profile.getPassword());
+        user = service.create(user);
+        userProfile.setUserId(user.getUserId());
+        userProfile.setDefault(true);
+        userProfile.setProfileId(newProfile.getProfileId());
+        userProfileService.create(userProfile);
+        return user;
     }
 
-    @Secured("ROLE_USER")
-    @RequestMapping(method = RequestMethod.GET)
+    /*@Secured("ROLE_USER")
+
     public User fetchUser(@RequestParam long userId) {
         return service.findById(userId);
-    }
+    }*/
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Ashutosh on 21-01-2017.
  */
 @RestController
-@RequestMapping("/usercourses")
+@RequestMapping("/user/courses")
 public class UserCourseController {
 
     private final UserCourseService service;
@@ -31,7 +31,7 @@ public class UserCourseController {
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.GET)
-    public List<UserCourses> fetchUserCourses(@RequestParam long userId) {
-        return service.findAllById(userId);
+    public List<UserCourses> fetchUserCourses(@RequestParam long userId, @RequestParam long profileId) {
+        return service.findAllByUserIdAndProfileId(userId, profileId);
     }
 }

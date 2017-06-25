@@ -4,8 +4,9 @@ import com.fabhotels.model.UserProfile;
 import com.fabhotels.repository.UserProfileRepository;
 import com.fabhotels.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Ashutosh on 21-01-2017.
@@ -26,13 +27,20 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    public UserProfile setDefaultProfile(UserProfile userProfile) {
+        int x = repository.updateDefaultFlag(userProfile.getUserId(), false);
+        System.out.println("Updating Default profiles: " + x);
+        return repository.save(userProfile);
+    }
+
+    @Override
     public void delete(UserProfile user) {
         repository.delete(user);
     }
 
     @Override
-    public Page<UserProfile> findAll(int page) {
-        return null;
+    public List<UserProfile> findAllByUserId(long userId) {
+        return repository.findAllByUserId(userId);
     }
 
     @Override

@@ -16,17 +16,22 @@ var UserAuth = function () {
     var user = {};
     user.username = '';
     user.password = '';
-}
+};
 
 var CourseListModel = function () {
-    var courses = []
-}
+    var courses = [];
+};
 
 var CourseModel = function () {
     var course = {};
     course.userId = '';
+    course.profileId = '';
     course.courseName = '';
     course.duration = '';
     course.fees = '';
     course.status = '';
-}
+};
+
+var ProfileList = function () {
+    var profile = [];
+};

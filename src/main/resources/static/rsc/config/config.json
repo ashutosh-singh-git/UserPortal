@@ -3,9 +3,13 @@
   "USER": "/user",
   "LOGIN": "/login",
   "REGISTER": "/register",
-  "GET_USER": "/user?userId={USER_ID}",
   "PROFILE": "/profile",
-  "GET_PROFILE": "/profile?userId={USER_ID}",
-  "COURSE": "/usercourses",
-  "GET_COURSES": "/usercourses?userId={USER_ID}"
+  "GET_USER": "/user?userId={USER_ID}",
+  "UPDATE_PROFILE": "/update",
+  "CREATE_PROFILE": "/create?userId={USER_ID}",
+  "USER_PROFILE": "/user/profile",
+  "GET_USER_PROFILE": "/user/profile?userId={USER_ID}",
+  "GET_PROFILE": "/profile?profileId={PROFILE_ID}",
+  "COURSE": "/user/courses",
+  "GET_COURSES": "/user/courses?userId={USER_ID}&profileId={PROFILE_ID}"
 }

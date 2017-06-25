@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -19,7 +20,10 @@ public class UserCourses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private Long userId;
+    @NotNull
+    private Long profileId;
     private String courseName;
     private String duration;
     private String fees;
@@ -43,6 +47,14 @@ public class UserCourses {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
     public String getCourseName() {

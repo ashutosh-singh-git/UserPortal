@@ -4,7 +4,6 @@ import com.fabhotels.model.UserCourses;
 import com.fabhotels.repository.UserCourseRepository;
 import com.fabhotels.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,13 +32,13 @@ public class UserCourseServiceImpl implements UserCourseService {
     }
 
     @Override
-    public Page<UserCourses> findAll(int page) {
-        return null;
+    public List<UserCourses> findAllById(long userId) {
+        return (List<UserCourses>) repository.findByUserId(userId);
     }
 
     @Override
-    public List<UserCourses> findAllById(long userId) {
-        return (List<UserCourses>) repository.findByUserId(userId);
+    public List<UserCourses> findAllByUserIdAndProfileId(long userId, long profileId) {
+        return repository.findAllByUserIdAndProfileId(userId, profileId);
     }
 
     @Override

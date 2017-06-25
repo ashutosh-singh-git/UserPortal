@@ -1,14 +1,17 @@
 package com.fabhotels.service;
 
 import com.fabhotels.model.UserProfile;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface UserProfileService {
     UserProfile create(UserProfile user);
 
+    UserProfile setDefaultProfile(UserProfile userProfile);
+
     void delete(UserProfile user);
 
-    Page<UserProfile> findAll(int page);
+    List<UserProfile> findAllByUserId(long userId);
 
     UserProfile findById(long id);
 }

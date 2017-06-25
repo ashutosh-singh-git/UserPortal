@@ -13,4 +13,6 @@ import java.util.List;
 public interface UserCourseRepository extends CrudRepository<UserCourses, Long> {
 
     List<UserCourses> findByUserId(long userId);
+
+    List<UserCourses> findAllByUserIdAndProfileId(long userId, long profileId);
 }

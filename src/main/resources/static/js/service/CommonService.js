@@ -4,7 +4,8 @@ bService.service('CommonService', ['$cookieStore', '$http', 'authFact', function
 
     var config = {
         headers: {
-            'Authorization': "Basic " + authFact.getAccessToken()
+            'Authorization': "Basic " + authFact.getAccessToken(),
+            'Content-Type': "application/json"
         }
     };
 

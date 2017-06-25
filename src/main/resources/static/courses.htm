@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h1>My Courses</h1>
         <br>
-        <span ng-show="!isCourseAvailable">You have no courses!!</span>
+        <label ng-show="!isCourseAvailable" class="label-info">Current Profile has no courses!!</label>
         <table ng-show="isCourseAvailable" class="table table-bordered">
             <thead>
             <tr>
@@ -26,7 +26,7 @@
             </tbody>
         </table>
         <br>
-        <h1>Add More</h1><br>
+        <h1>Add Course</h1><br>
         <div class="row">
             <form name="form" ng-submit="addCourse()" role="form">
                 <div class="col-lg-4 form-inline">
