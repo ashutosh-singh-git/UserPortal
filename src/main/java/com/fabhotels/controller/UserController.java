@@ -48,7 +48,10 @@ public class UserController {
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public User userRegister(@RequestBody @Valid Profile profile) {
         if (profile.getPassword() == null || profile.getUsername() == null) {
-            throw new BadCredentialsException("UserName or Password is not present");
+            throw new BadCredentialsException("UserName or Password is not present in the request");
+        }
+        if (service.getUserByName(profile.getUsername()) != null) {
+            throw new DataIntegrityViolationException("This User Name is already registered");
         }
         if (profileService.findByEmail(profile.getEmail())) {
             throw new DataIntegrityViolationException("This Email is already registered");

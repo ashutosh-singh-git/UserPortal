@@ -5,6 +5,7 @@ bController.controller('LoginController', ['$window', '$scope', '$rootScope', 'C
         $scope.register_url = config.BASE_URL + config.REGISTER;
         $scope.user = new UserModel();
         $scope.islogin = true;
+        $scope.error;
 
         $scope.login = function () {
             console.log("Validating user: ");
@@ -14,8 +15,9 @@ bController.controller('LoginController', ['$window', '$scope', '$rootScope', 'C
                 $scope.user = '';
             }, function (reason) {
                 console.log(reason.status);
-                alert('Failed;' + 'Status: ' + reason.status + ',' +
-                    'error: ' + reason.data.error + ', message: ' + reason.data.message);
+                $scope.error = reason.data.error;
+                /*alert('Failed;' + 'Status: ' + reason.status + ',' +
+                 'error: ' + reason.data.error + ', message: ' + reason.data.message);*/
             });
         };
 
@@ -26,8 +28,10 @@ bController.controller('LoginController', ['$window', '$scope', '$rootScope', 'C
                 $scope.onSuccess(data);
             }, function (reason) {
                 console.log(reason.status);
-                alert('Failed;' + 'Status: ' + reason.status + ',' +
-                    'error: ' + reason.data.error + ', message: ' + reason.data.message);
+                $scope.error = reason.data.message;
+                /*alert('Failed;' + 'Status: ' + reason.status + ',' +
+                 'error: ' + reason.data.error + ', message: ' + reason.data.message);*/
+
             });
         };
 

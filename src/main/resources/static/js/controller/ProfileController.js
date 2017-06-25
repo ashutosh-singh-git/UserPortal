@@ -3,15 +3,15 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
 
         $scope.get_profile_url = config.BASE_URL + config.GET_PROFILE;
         $scope.update_profile_url = config.BASE_URL + config.PROFILE + config.UPDATE_PROFILE;
+        $scope.create_profile_url = config.BASE_URL + config.PROFILE + config.CREATE_PROFILE;
         $scope.userprofile_url = config.BASE_URL + config.USER_PROFILE;
         $scope.get_userprofile_url = config.BASE_URL + config.GET_USER_PROFILE;
 
         $scope.selectedUser = new UserModel();
         $scope.profiles = new ProfileList();
-        // $scope.selectedUser.firstName = 'Ashutosh';
-        // $scope.selectedUser.lastName = 'Singh';
         $scope.isEdit = false;
         $scope.dataPresent = false;
+        $scope.profileId;
 
         $rootScope.$on("CallParentMethod", function () {
             init();
@@ -47,8 +47,6 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
                     console.log(data.data);
                     $scope.selectedUser = data.data;
                     $scope.dataPresent = true;
-                    // $scope.setUserName($scope.selectedUser.firstName);
-
                     $timeout(function () {
                         $scope.dataLoaded = true;
                     }, 100);
@@ -66,8 +64,31 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
             CommonService.postRequest($scope.update_profile_url, $scope.selectedUser).then(
                 function (data) {
                     console.log(data.data);
-                    $scope.selectedUser = data.data;
                     $scope.isEdit = false;
+                    document.location.reload();
+                }, function (reason) {
+                    alert('Failed: ' + reason.data.message);
+                });
+        };
+
+        $scope.createProfile = function () {
+            var url = $scope.replacePlaceHolder($scope.create_profile_url, "USER_ID", $scope.getUserId());
+            CommonService.postRequest(url, $scope.selectedUser).then(function (data) {
+                console.log(data.data);
+                document.location.reload();
+            }, function (reason) {
+                alert('Failed: ' + reason.data.message);
+            });
+        };
+
+        $scope.updateUserProfile = function (profileId) {
+            $scope.selectedUser.profileId = profileId;
+            $scope.selectedUser.userId = $scope.getUserId();
+            $scope.selectedUser.default = true;
+            console.log($scope.selectedUser);
+            CommonService.postRequest($scope.userprofile_url, $scope.selectedUser).then(
+                function (data) {
+                    console.log(data.data);
                     document.location.reload();
                 }, function (reason) {
                     alert('Failed: ' + reason.data.message);
@@ -78,6 +99,14 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
             return str.replace("{" + placeholder + "}", value);
         };
 
+        $scope.changeDefaultProfile = function () {
+            $scope.updateUserProfile($scope.profileId);
+        };
+
+        $scope.clickHandler = function (event) {
+            $scope.profileId = event;
+            $('#myModal').modal();
+        };
 
         objectToStringArray = function (deck) {
             delete deck.categories;
@@ -85,4 +114,5 @@ app.controller('ProfileController', ['$scope', 'CommonService', '$timeout', '$ro
             delete deck.cards;
             return deck;
         };
-    }]);
+    }
+]);

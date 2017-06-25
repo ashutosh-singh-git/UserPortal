@@ -1,6 +1,6 @@
 var bController = angular.module('BluohController', []);
 var bService = angular.module('BluohService', []);
-var app = angular.module('bluohApp', ['BluohController', 'BluohService', 'ngRoute', 'ngCookies', 'frapontillo.bootstrap-switch']);
+var app = angular.module('bluohApp', ['BluohController', 'BluohService', 'ngRoute', 'ngCookies', 'toggle-switch']);
 
 var config = undefined;
 /*var PLACEHOLDER_DECK_ID = "DECK_ID";
