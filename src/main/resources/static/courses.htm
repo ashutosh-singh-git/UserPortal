@@ -1,32 +1,28 @@
 <div ng-cloak ng-controller="CourseController">
     <div class="col-md-12">
-        <h1>My Courses</h1>
-        <br>
-        <label ng-show="!isCourseAvailable" class="label-info">Current Profile has no courses!!</label>
-        <table ng-show="isCourseAvailable" class="table table-bordered">
-            <thead>
-            <tr>
-                <td>CourseId</td>
-                <td>Course Name</td>
-                <td>Course Duration</td>
-                <td>Course Fees</td>
-                <td>Enrolled Date</td>
-                <td>Course Status</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="x in course">
-                <td>{{x.id}}</td>
-                <td>{{x.courseName}}</td>
-                <td>{{x.duration}}</td>
-                <td>{{x.fees}}</td>
-                <td>{{x.enrolledDate | date}}</td>
-                <td>{{x.status | titleCase}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <h1>Add Course</h1><br>
+        <div class="page-header"><h2>My Courses</h2></div>
+        <label ng-show="!isCourseAvailable" class="panel-warning">Current Profile has no courses!!</label>
+        <div ng-show="isCourseAvailable" class="panel panel-group">
+            <div class="panel">
+                <div class="col-md-2"><span><strong>CourseId</strong></span></div>
+                <div class="col-md-2"><span><strong>Course Name</strong></span></div>
+                <div class="col-md-2"><span><strong>Course Duration</strong></span></div>
+                <div class="col-md-2"><span><strong>Course Fees</strong></span></div>
+                <div class="col-md-2"><span><strong>Enrolled Date</strong></span></div>
+                <div class="col-md-2"><span><strong>Course Status</strong></span></div>
+                <br>
+            </div>
+            <div class="panel panel-body panel-primary" ng-repeat="x in course">
+                <div class="col-md-2"><span>Course{{x.id}}</span></div>
+                <div class="col-md-2"><span>{{x.courseName}}</span></div>
+                <div class="col-md-2"><span>{{x.duration}}</span></div>
+                <div class="col-md-2"><span>{{x.fees}}</span></div>
+                <div class="col-md-2"><span>{{x.enrolledDate | date}}</span></div>
+                <div class="col-md-2"><span>{{x.status}}</span></div>
+            </div>
+        </div>
+        <!--<br>-->
+        <div class="page-header"><h2>Add Course</h2></div>
         <div class="row">
             <form name="form" ng-submit="addCourse()" role="form">
                 <div class="col-lg-4 form-inline">
